@@ -47,9 +47,9 @@ class RbacServiceProvider extends ServiceProvider
     {
         $this->registerRbac();
 
-        //$this->registerCommands();
+        $this->registerCommands();
 
-        //$this->mergeConfig();
+        $this->mergeConfig();
     }
 
     /**

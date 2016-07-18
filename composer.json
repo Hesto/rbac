@@ -12,6 +12,9 @@
         "php": ">=5.5.0"        
     },    
     "autoload": {
+        "classmap": [
+            "src/commands"
+        ],
         "psr-4": {
             "Hesto\\Rbac\\": "src/rbac/"
         }
