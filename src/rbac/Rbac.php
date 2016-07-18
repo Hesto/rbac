@@ -84,10 +84,9 @@ class Rbac
      *
      * @return Illuminate\Auth\UserInterface|null
      */
-    public function user($guard)
+    public function user($guard = 'admin')
     {
-        dd($this->app->auth->guard($guard)->user());
-        return $this->app->auth->user();
+        return $this->app->auth->guard($guard)->user();
     }
 
     /**
