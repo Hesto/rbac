@@ -19,6 +19,17 @@ return [
     | the role if it is in a different namespace.
     |
     */
+    'default_guard' => 'admin',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Rbac Role Model
+    |--------------------------------------------------------------------------
+    |
+    | This is the Role model used by Rbac to create correct relations.  Update
+    | the role if it is in a different namespace.
+    |
+    */
     'role' => 'App\Role',
 
     /*

@@ -36,9 +36,11 @@ class Rbac
      *
      * @return bool
      */
-    public function hasRole($role, $requireAll = false)
+    public function hasRole($role, $requireAll = false, $guard = null)
     {
-        if ($user = $this->user()) {
+        $guard = $this->validateGuard($guard);
+
+        if ($user = $this->user($guard)) {
             return $user->hasRole($role, $requireAll);
         }
 
@@ -52,8 +54,10 @@ class Rbac
      *
      * @return bool
      */
-    public function can($permission, $guard = 'admin', $requireAll = false)
+    public function can($permission, $requireAll = false, $guard = null)
     {
+        $guard = $this->validateGuard($guard);
+
         if ($user = $this->user($guard)) {
             return $user->can($permission, $requireAll);
         }
@@ -70,9 +74,11 @@ class Rbac
      *
      * @return bool
      */
-    public function ability($roles, $permissions, $options = [])
+    public function ability($roles, $permissions, $options = [], $guard = null)
     {
-        if ($user = $this->user()) {
+        $guard = $this->validateGuard($guard);
+
+        if ($user = $this->user($guard)) {
             return $user->ability($roles, $permissions, $options);
         }
 
@@ -84,7 +90,7 @@ class Rbac
      *
      * @return Illuminate\Auth\UserInterface|null
      */
-    public function user($guard = 'admin')
+    public function user($guard)
     {
         return $this->app->auth->guard($guard)->user();
     }
@@ -198,5 +204,13 @@ class Rbac
         // Same as Route::when, assigns a route pattern to the
         // previously created filter.
         $this->app->router->when($route, $filterName);
+    }
+
+    public function validateGuard($guard) {
+        if($guard == null) {
+            $guard = Config::get('rbac.default_guard');
+        }
+
+        return $guard;
     }
 }

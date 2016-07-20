@@ -1,6 +1,6 @@
 {
     "name": "hesto/rbac",
-    "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
+    "description": "This package provides a way to add Role-based Permissions to Laravel",
     "license": "MIT",
     "authors": [
         {
