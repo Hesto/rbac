@@ -8,6 +8,8 @@
  * @package Hesto\Rbac
  */
 
+use Illuminate\Support\Facades\Config;
+
 class Rbac
 {
     /**
