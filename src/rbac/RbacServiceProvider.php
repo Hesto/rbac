@@ -61,7 +61,7 @@ class RbacServiceProvider extends ServiceProvider
     {
         // Call to Rbac::hasRole
         \Blade::directive('role', function($expression) {
-            return "<?php if (\\Rbac::hasRole{$expression}) : ?>";
+            return "<?php if (\\Rbac::hasRole($expression)) : ?>";
         });
 
         \Blade::directive('endrole', function($expression) {
@@ -70,7 +70,7 @@ class RbacServiceProvider extends ServiceProvider
 
         // Call to Rbac::can
         \Blade::directive('permission', function($expression) {
-            return "<?php if (\\Rbac::can{$expression}) : ?>";
+            return "<?php if (\\Rbac::can($expression)) : ?>";
         });
 
         \Blade::directive('endpermission', function($expression) {
@@ -79,7 +79,7 @@ class RbacServiceProvider extends ServiceProvider
 
         // Call to Rbac::ability
         \Blade::directive('ability', function($expression) {
-            return "<?php if (\\Rbac::ability{$expression}) : ?>";
+            return "<?php if (\\Rbac::ability($expression)) : ?>";
         });
 
         \Blade::directive('endability', function($expression) {
