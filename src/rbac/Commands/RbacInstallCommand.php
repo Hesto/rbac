@@ -12,6 +12,7 @@ namespace Hesto\Rbac\Commands;
 
 use Hesto\Core\Commands\InstallCommand;
 use SplFileInfo;
+use Carbon\Carbon;
 
 class RbacInstallCommand extends InstallCommand
 {
@@ -52,17 +53,19 @@ class RbacInstallCommand extends InstallCommand
     {
         $migrationsDir = '/database/migrations/';
 
+        $carbon = Carbon::now();
+
         return [
             'roles' => [
-                'path' => $migrationsDir . date('Y_m_d_His') . '_create_roles_table.php',
+                'path' => $migrationsDir . $carbon->addSecond(1)->format('Y_m_d_His') . '_create_roles_table.php',
                 'stub' => __DIR__ . '/../../stubs/migrations/create_roles_table.stub',
             ],
             'permissions' => [
-                'path' => $migrationsDir . date('Y_m_d_His') . '_create_permissions_table.php',
+                'path' => $migrationsDir . $carbon->addSecond(2)->format('Y_m_d_His') . '_create_permissions_table.php',
                 'stub' => __DIR__ . '/../../stubs/migrations/create_permissions_table.stub',
             ],
             'permission_role' => [
-                'path' => $migrationsDir . date('Y_m_d_His') . '_create_permission_role_pivot_table.php',
+                'path' => $migrationsDir . $carbon->addSecond(3)->format('Y_m_d_His') . '_create_permission_role_pivot_table.php',
                 'stub' => __DIR__ . '/../../stubs/migrations/create_permission_role_pivot_table.stub',
             ]
         ];
