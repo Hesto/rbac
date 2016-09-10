@@ -1,6 +1,6 @@
 <?php
 
-namespace Hesto\Rbac;
+namespace Hesto\Rbac\Commands;
 
 /**
  * This file is part of Rbac,

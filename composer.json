@@ -13,9 +13,6 @@
         "hesto/core": ">=1.0.5"
     },    
     "autoload": {
-        "classmap": [
-            "src/commands"
-        ],
         "psr-4": {
             "Hesto\\Rbac\\": "src/rbac/"
         }
