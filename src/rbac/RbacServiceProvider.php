@@ -30,9 +30,6 @@ class RbacServiceProvider extends ServiceProvider
          $this->publishes([
              __DIR__.'/../config/config.php' => config_path('rbac.php'),
          ]);
-
-        // Register commands
-        $this->commands('command.rbac.migration');
         
         // Register blade directives
         $this->bladeDirectives();
@@ -47,9 +44,28 @@ class RbacServiceProvider extends ServiceProvider
     {
         $this->registerRbac();
 
-        $this->registerCommands();
+        $this->registerMigrationCommand();
+        $this->registerInstallCommand();
 
         $this->mergeConfig();
+    }
+
+    private function registerMigrationCommand()
+    {
+        $this->app->singleton('command.hesto.rbac.migration', function ($app) {
+            return $app['Hesto\Adminlte\Commands\MigrationCommand'];
+        });
+
+        $this->commands('command.hesto.rbac.migration');
+    }
+
+    private function registerInstallCommand()
+    {
+        $this->app->singleton('command.hesto.rbac.install', function ($app) {
+            return $app['Hesto\Adminlte\Commands\RbacInstallCommand'];
+        });
+
+        $this->commands('command.hesto.rbac.install');
     }
 
     /**
@@ -99,18 +115,6 @@ class RbacServiceProvider extends ServiceProvider
         });
         
         $this->app->alias('rbac', 'Hesto\Rbac\Rbac');
-    }
-
-    /**
-     * Register the artisan commands.
-     *
-     * @return void
-     */
-    private function registerCommands()
-    {
-        $this->app->singleton('command.rbac.migration', function ($app) {
-            return new MigrationCommand();
-        });
     }
 
     /**
