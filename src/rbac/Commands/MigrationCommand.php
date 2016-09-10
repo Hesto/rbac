@@ -40,7 +40,7 @@ class MigrationCommand extends InstallCommand
     {
         $this->call('make:migration:pivot', [
             'tableOne' => 'roles',
-            'tableTwo' => str_plural($this->argument('tableTwo')),
+            'tableTwo' => str_plural($this->argument('name')),
         ]);
     }
 

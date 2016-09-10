@@ -10,11 +10,10 @@ namespace Hesto\Rbac\Commands;
  * @package Hesto\Rbac
  */
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Config;
-use Hesto\Core\Commands\InstallFilesCommand;
+use Hesto\Core\Commands\InstallCommand;
+use SplFileInfo;
 
-class RbacInstallCommand extends InstallFilesCommand
+class RbacInstallCommand extends InstallCommand
 {
     /**
      * The console command name.
@@ -35,6 +34,20 @@ class RbacInstallCommand extends InstallFilesCommand
      *
      * @return array
      */
+    public function fire()
+    {
+        foreach ($this->getFiles() as $fileArray) {
+            if($this->putFile(base_path() . $fileArray['path'], new SplFileInfo($fileArray['stub']))) {
+                $this->info('Installed: ' . $fileArray['path']);
+            }
+        }
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return array
+     */
     public function getFiles()
     {
         $migrationsDir = '/database/migrations/';
@@ -42,15 +55,15 @@ class RbacInstallCommand extends InstallFilesCommand
         return [
             'roles' => [
                 'path' => $migrationsDir . date('Y_m_d_His') . '_create_roles_table.php',
-                'stub' => __DIR__ . '/../stubs/create_roles_table.stub',
+                'stub' => __DIR__ . '/../../stubs/migrations/create_roles_table.stub',
             ],
             'permissions' => [
                 'path' => $migrationsDir . date('Y_m_d_His') . '_create_permissions_table.php',
-                'stub' => __DIR__ . '/../stubs/create_permissions_table.stub',
+                'stub' => __DIR__ . '/../../stubs/migrations/create_permissions_table.stub',
             ],
             'permission_role' => [
                 'path' => $migrationsDir . date('Y_m_d_His') . '_create_permission_role_pivot_table.php',
-                'stub' => __DIR__ . '/../stubs/create_permission_role_pivot_table.stub',
+                'stub' => __DIR__ . '/../../stubs/migrations/create_permission_role_pivot_table.stub',
             ]
         ];
     }
