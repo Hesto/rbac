@@ -53,7 +53,7 @@ class RbacServiceProvider extends ServiceProvider
     private function registerMigrationCommand()
     {
         $this->app->singleton('command.hesto.rbac.migration', function ($app) {
-            return $app['Hesto\Adminlte\Commands\MigrationCommand'];
+            return $app['Hesto\Rbac\Commands\MigrationCommand'];
         });
 
         $this->commands('command.hesto.rbac.migration');
@@ -62,7 +62,7 @@ class RbacServiceProvider extends ServiceProvider
     private function registerInstallCommand()
     {
         $this->app->singleton('command.hesto.rbac.install', function ($app) {
-            return $app['Hesto\Adminlte\Commands\RbacInstallCommand'];
+            return $app['Hesto\Rbac\Commands\RbacInstallCommand'];
         });
 
         $this->commands('command.hesto.rbac.install');
